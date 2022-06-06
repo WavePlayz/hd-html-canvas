@@ -88,12 +88,37 @@ document.body.style.padding = 0
 let [can,ctx] = newCanvas('can', width, width, "aaa", dpr )
 //can.style.margin = "10px"
 
+
+
+
+
+  
+can.addEventListener('touchstart', function(e){
+	
+	let { clientX, clientY } = e.touches[0]
+	console.log(clientX, clientY)
+	ctx.drawLine(0,0,clientX,clientY)
+})
+/*
+  can.addEventListener('touchend', handleEnd);
+  can.addEventListener('touchcancel', handleCancel);
+  can.addEventListener('touchmove', handleMove);
+  */
+
+
+
+
+
+
+
+
+
 let nn = 5
 
 let an = 0
 
 ;(function loop() {
-	ctx.clear()
+	//ctx.clear()
 	update()
 	requestAnimationFrame(loop)
 })();
