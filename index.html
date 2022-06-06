@@ -151,8 +151,10 @@ let o = width/2
 an = (an + 1 )%360
 
 let t =  Math.PI/180 * an
-let l = o/2 * Math.sin(t*t)*Math.cos(t**3)
+let l = o/2 * Math.sin(t*1)*Math.cos(t**2)
+
 ctx.drawLine( o,o, o+l*Math.sin(t), o+l*Math.cos(t) )
+
 //ctx.drawLine( o,o, o+l*Math.sin(t+90), o+l*Math.cos(t) )
 
 n.innerHTML = (180/Math.PI * t).toFixed(2)
