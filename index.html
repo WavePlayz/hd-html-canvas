@@ -147,14 +147,10 @@ let [can,ctx] = newCanvas('can', width, width, "aaa", dpr*1.5 )
 let ts = []
 let tm = []
 
+let ps = []
+
 can.addEventListener('click', function(e){
-	console.log(e)
-	let { clientX, clientY } = e.touch
-	console.log(e,clientX, clientY)
 	
-	ts = [clientX, clientY]
-	
-	//ctx.drawLine(0,0,clientX,clientY)
 })
 
 can.addEventListener('touchstart', function(e){
@@ -163,6 +159,10 @@ can.addEventListener('touchstart', function(e){
 	console.log(clientX, clientY)
 	
 	ts = [clientX, clientY]
+	let px = clientX-or[0]-of[0] - clientX% (width/12)
+	let py = clientY-or[1]-of[1] - clientY% (width/12)
+	ps.push([px,py])
+	
 	
 	//ctx.drawLine(0,0,clientX,clientY)
 })
@@ -206,6 +206,12 @@ let an = 0
 
 function update(){
 grid(12)
+
+ps.forEach(([x,y]) => {
+	x = x * width/12
+	y += 
+	ctx.drawLine(x,y, x+width/12, y+width/12)
+})
 
 let o = width/2
 
