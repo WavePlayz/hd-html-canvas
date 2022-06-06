@@ -55,12 +55,15 @@ function grid(nn) {
 		})
 		
 		
-		ctx.font = "8px Arial";
-		
+		ctx.font="10px verdana";
+ctx.shadowColor="black";
+ctx.shadowBlur=50;
+		ctx.textAlign = "center";
+ctx.textBaseline = "middle";
 		let ss = `${-Math.floor((A-or[1]-of[1] )/n) }`
-		ctx.fillText(ss, 10, A-ss.length*2.3)
+		ctx.fillText(ss, n/2, A)
 		
-		
+		ctx.shadowBlur = 0
 		
 	}
 	
@@ -77,11 +80,14 @@ function grid(nn) {
 			ctx.drawLine( A,0,A,width, wi )
 		})
 		
-		ctx.font = "8px Arial";
-		
+		ctx.font="10px verdana";
+ctx.shadowColor="black";
+ctx.shadowBlur=50;
+		ctx.textAlign = "center";
+		ctx.textBaseline = "middle";
 		let ss = `${Math.floor((A-or[0]-of[0] )) /n}`
-		ctx.fillText(ss, A-ss.length*2.3, width-10)
-		
+		ctx.fillText(ss, A, width-n/2)
+		ctx.shadowBlur = 0
 		
 	}
 	
