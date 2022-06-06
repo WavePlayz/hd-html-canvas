@@ -42,7 +42,7 @@ CanvasRenderingContext2D.prototype.color = function(color, func) {
 	if(!func) {
 		this.fillStyle = this.getColor(color)
 		this.strokeStyle = this.getColor(color)
-		console.log('dfdd')
+		
 		return
 	}
 	
@@ -50,7 +50,7 @@ CanvasRenderingContext2D.prototype.color = function(color, func) {
 	this.color(color)
 	func()
 	this.color(before)
-	console.log('df')
+	
 }
 
 
@@ -111,10 +111,10 @@ for(let i = width/nn; i < width; i += width/nn) {
 	})
 }
 
-let t = an += 5 / 180
+let t = an += 2 / 180
 let l = o/2
 ctx.drawLine( o,o, o+l*Math.sin(t), o+l*Math.cos(t) )
-ctx.drawLine( o,o, o+l*Math.sin(t+90), o+l*Math.cos(t) )
+//ctx.drawLine( o,o, o+l*Math.sin(t+90), o+l*Math.cos(t) )
 
 
 
