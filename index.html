@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>HD Canvas</title>
+	
 </head>
 <body>
 
@@ -29,15 +30,27 @@ function elem (value, tag = value) {
 	return element
 }
 
-function newCanvas(id) {
-	const canvas = elem("canvas", id)
+function newCanvas(id= "canvas", w, h, r = dpr) {
+	const canvas = elem(id , "canvas")
 	const ctx = canvas.getContext("2d")
+	
+	canvas.width = w * r
+	canvas.height = h * r
+	canvas.style.width = w + "px"
+	canvas.style.height = h + "px"
+	canvas.style.background = "#ccc"
+	
+	ctx.setTransform(r, 0, 0, r, 0, 0)
+
 	document.body.appendChild(canvas)
+	
+	return { canvas, ctx }
 }
 
+document.body.style.margin = 0
+document.body.style.padding = 0
 
-
-
+newCanvas('can', width,width)
 
 
 
