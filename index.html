@@ -44,8 +44,10 @@ function grid(nn) {
 			let wi = 3
 			
 			if (i % (n* 2) != 0) wi /= 2;
-			
-			ctx.drawLine( 0,i+of[1], width,i+of[1], wi )
+			let a = i+of[1] 
+			let A = a > width ? a % width : 
+				a < 0 
+			ctx.drawLine( 0, A, width,A, wi )
 			
 		})
 	}
