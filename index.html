@@ -44,7 +44,7 @@ function grid(nn) {
 			let wi = 3
 			
 			if (i % (n* 2) != 0) wi /= 2;
-			let a = i+of[1] 
+			let a = i+of[1]
 			let A = a > width ? a % width : 
 				a < 0 ? width + a : a
 			ctx.drawLine( 0, A, width,A, wi )
@@ -200,6 +200,8 @@ let o = width/2
 
 let [ofx,ofy] = of;
 
+ofx += or[0]
+ofy += or[1]
 
 an = (an + 1 )%360
 
