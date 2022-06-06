@@ -42,8 +42,8 @@ function grid(nn) {
 		
 		if (i % (width/nn * 2) != 0) n /= 2;
 		
-		ctx.drawLine( 0,i, width,i, n )
-		ctx.drawLine( i,0, i,width, n )
+		ctx.drawLine( 0+of[0],i+of[1], width+of[0],i+of[1], n )
+		ctx.drawLine( i+of[0],0+of[1], i+of[0],width+of[1], n )
 	})
 }
 }
@@ -105,6 +105,7 @@ document.body.style.margin = 0
 document.body.style.padding = 0
 
 let of = [0,0]
+let or = [0,0]
 
 let [can,ctx] = newCanvas('can', width, width, "aaa", dpr*1.5 )
 //can.style.margin = "10px"
