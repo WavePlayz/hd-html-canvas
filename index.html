@@ -35,7 +35,7 @@ CanvasRenderingContext2D.prototype.drawLine = function(x0=0, y0=0, x1=100, y1=10
 CanvasRenderingContext2D.prototype.clear = function() {
 	let w = this.canvas.width * 10
 	let h = this.canvas.height * 10
-	this.clearRect(-w, -h, w, h)
+	this.clearRect(0, 0, w, h)
 }
 
 CanvasRenderingContext2D.prototype.color = function(color, func) {
@@ -85,11 +85,12 @@ function newCanvas(id, dx, dy, color, ratio = dpr) {
 document.body.style.margin = 0
 document.body.style.padding = 0
 
-let [can,ctx] = newCanvas('can', width, width, "aaa", dpr*5 )
+let [can,ctx] = newCanvas('can', width, width, "aaa", dpr )
 //can.style.margin = "10px"
 
 let nn = 5
 
+let an = 0
 
 ;(function loop() {
 	ctx.clear()
@@ -97,7 +98,10 @@ let nn = 5
 	requestAnimationFrame(loop)
 })();
 
+
+
 function update(){
+let o = width/2
 
 for(let i = width/nn; i < width; i += width/nn) {
 	ctx.color("a0a2a4", () => {
@@ -107,8 +111,10 @@ for(let i = width/nn; i < width; i += width/nn) {
 	})
 }
 
-let o = 
-
+let t = an += 5 / 180
+let l = o/2
+ctx.drawLine( o,o, o+l*Math.sin(t), o+l*Math.cos(t) )
+ctx.drawLine( o,o, o+l*Math.sin(t+90), o+l*Math.cos(t) )
 
 
 
