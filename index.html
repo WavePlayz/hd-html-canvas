@@ -39,13 +39,24 @@ function grid(nn) {
 	let n = width/nn
 	
 	
-	for (let i = n-of[1]; i < width; i += n) {
+	for (let i = n; i < width; i += n) {
 		ctx.color("a2a4a6", () => {
 			let wi = 3
 			
 			if (i % (n* 2) != 0) wi /= 2;
 			
-			ctx.drawLine( 0,i, width,i+of[1]-of[0], wi )
+			ctx.drawLine( 0,i+of[1], width,i+of[1], wi )
+			
+		})
+	}
+	
+	for (let i = n; i < width; i += n) {
+		ctx.color("a2a4a6", () => {
+			let wi = 3
+			
+			if (i % (n* 2) != 0) wi /= 2;
+			
+			ctx.drawLine( i+of[0],0,i+of[0],width, wi )
 			
 		})
 	}
