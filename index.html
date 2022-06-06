@@ -136,13 +136,12 @@ for(let i = width/nn; i < width; i += width/nn) {
 	})
 }
 
-let t = an += 2 / 180
+let t = an += 1 / 180
 let l = o/2
 ctx.drawLine( o,o, o+l*Math.sin(t), o+l*Math.cos(t) )
 //ctx.drawLine( o,o, o+l*Math.sin(t+90), o+l*Math.cos(t) )
 
-
-
+if (t== 0) ctx.clear();
 }
 
 
