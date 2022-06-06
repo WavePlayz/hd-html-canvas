@@ -9,6 +9,8 @@
 	
 </head>
 <body>
+	
+<p id='n'></p>
 
 <!-- <script src="./script.js"></script> -->
 <script>
@@ -136,12 +138,16 @@ for(let i = width/nn; i < width; i += width/nn) {
 	})
 }
 
-let t = an += 1 / 180
+an = (an +10 )%360
+
+let t =  an/180
 let l = o/2
 ctx.drawLine( o,o, o+l*Math.sin(t), o+l*Math.cos(t) )
 //ctx.drawLine( o,o, o+l*Math.sin(t+90), o+l*Math.cos(t) )
 
-if (t== 0) ctx.clear();
+n.innerHTML = 180/t
+
+if (t*180 == 0) ctx.clear();
 }
 
 
