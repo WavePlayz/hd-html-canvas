@@ -21,7 +21,7 @@ const {
 console.log(width, height, dpr )
 
 CanvasRenderingContext2D.prototype.getColor = function(color) {
-	return 
+	return "#" + color.replaceAll("#","")
 }
 
 CanvasRenderingContext2D.prototype.drawLine = function(x0=0, y0=0, x1=100, y1=100, width=5) {
@@ -33,13 +33,14 @@ CanvasRenderingContext2D.prototype.drawLine = function(x0=0, y0=0, x1=100, y1=10
 }
 
 CanvasRenderingContext2D.prototype.clear = function() {
-	this.clearRect(0, 0, this.canvas.width, this.canvas.height)
+	let w = this.canvas.width * 10
+	let h = this.canvas.height * 10
+	this.clearRect(-w, -h, w, h)
 }
 
 CanvasRenderingContext2D.prototype.color = function(color, func) {
-	
 	if(!func) {
-		this.fillStyle = "#"+color.replaceAll("#","")
+		this.fillStyle = this.getColor(color)
 		return
 	}
 	
@@ -84,17 +85,23 @@ document.body.style.padding = 0
 let [can,ctx] = newCanvas('can', width, width, "aaa", dpr*2 )
 //can.style.margin = "10px"
 
-setInterval(v => {
-ctx.clear()
-let a = Math.random()*width-10
-let b = Math.random()*width-10
-let c = Math.random()*width-10
-let d = Math.random()*width-10
+//setInterval(v => {
+	ctx.clear()
+	
+	
+	
+	let a = Math.random()*width-10
+	let b = Math.random()*width-10
+	let cc = Math.random()*width-10
+	let d = Math.random()*width-10
+	
+	let co = (Date.now() % 16777215).toString(16)
+	
+	ctx.color("fff", () => {
+		ctx.drawLine( a,b,cc,d )
+	})
+//},1000)
 
-let co = Date.now() % 16777215
-
-ctx.drawLine( a,b,c,d,5,co.toString(16))
-})
 
 
 
