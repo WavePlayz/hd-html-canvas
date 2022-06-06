@@ -147,6 +147,16 @@ let [can,ctx] = newCanvas('can', width, width, "aaa", dpr*1.5 )
 let ts = []
 let tm = []
 
+can.addEventListener('click', function(e){
+	console.log(e)
+	let { clientX, clientY } = e.touch
+	console.log(e,clientX, clientY)
+	
+	ts = [clientX, clientY]
+	
+	//ctx.drawLine(0,0,clientX,clientY)
+})
+
 can.addEventListener('touchstart', function(e){
 	
 	let { clientX, clientY } = e.touches[0]
@@ -209,10 +219,12 @@ an = (an + 1 )%360
 let t =  Math.PI/180 * an
 let l = o/2 * Math.sin(t*1)*Math.cos(t**2)
 
+if (Math.hypot(ofx-o, ofy-o) > Math.hypot(o, o))
+ctx.color("a2a4ff",() => ctx.drawLine( o, o, ofx, ofy, 3))
 ctx.drawLine( ofx, ofy, l*Math.sin(t)+ofx, l*Math.cos(t)+ofy )
 
 
-ctx.color("a0a0ff",() => ctx.drawLine( o, o, ofx, ofy, 3/2))
+
 
 //ctx.drawLine( o,o, o+l*Math.sin(t+90), o+l*Math.cos(t) )
 
