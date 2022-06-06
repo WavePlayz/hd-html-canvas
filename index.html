@@ -41,6 +41,8 @@ CanvasRenderingContext2D.prototype.clear = function() {
 CanvasRenderingContext2D.prototype.color = function(color, func) {
 	if(!func) {
 		this.fillStyle = this.getColor(color)
+		this.strokeStyle = this.getColor(color)
+		console.log('dfdd')
 		return
 	}
 	
@@ -48,6 +50,7 @@ CanvasRenderingContext2D.prototype.color = function(color, func) {
 	this.color(color)
 	func()
 	this.color(before)
+	console.log('df')
 }
 
 
@@ -82,8 +85,22 @@ function newCanvas(id, dx, dy, color, ratio = dpr) {
 document.body.style.margin = 0
 document.body.style.padding = 0
 
-let [can,ctx] = newCanvas('can', width, width, "aaa", dpr*2 )
+let [can,ctx] = newCanvas('can', width, width, "aaa", dpr*5 )
 //can.style.margin = "10px"
+
+let nn = 20
+
+for(let i = 0; i <= width; i += width/nn) {
+	ctx.color("a0a2a4", () => {
+		if(i==0||i==width) return;
+		ctx.drawLine( 0,i, width,i, 1.5 )
+		ctx.drawLine( i,0, i,width, 2 )
+	})
+}
+
+
+
+
 
 //setInterval(v => {
 	ctx.clear()
