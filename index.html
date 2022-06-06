@@ -38,7 +38,10 @@ CanvasRenderingContext2D.prototype.drawLine = function(x0=0, y0=0, x1=100, y1=10
 function grid(nn) {
 	for(let i = width/nn; i < width; i += width/nn) {
 	ctx.color("a2a4a6", () => {
-		let n = 2
+		let n = 3
+		
+		if (i % (width/nn * 2) != 0) n /= 2;
+		
 		ctx.drawLine( 0,i, width,i, n )
 		ctx.drawLine( i,0, i,width, n )
 	})
@@ -101,25 +104,39 @@ function newCanvas(id, dx, dy, color, ratio = dpr) {
 document.body.style.margin = 0
 document.body.style.padding = 0
 
+let of = [0,0]
+
 let [can,ctx] = newCanvas('can', width, width, "aaa", dpr*1.5 )
 //can.style.margin = "10px"
 
 
 
 
+let ts = []
+let tm = []
 
-  
 can.addEventListener('touchstart', function(e){
 	
 	let { clientX, clientY } = e.touches[0]
 	console.log(clientX, clientY)
-	ctx.drawLine(0,0,clientX,clientY)
+	
+	ts = [clientX, clientY]
+	
+	//ctx.drawLine(0,0,clientX,clientY)
 })
 /*
   can.addEventListener('touchend', handleEnd);
   can.addEventListener('touchcancel', handleCancel);
-  can.addEventListener('touchmove', handleMove);
-  */
+*/  can.addEventListener('touchmove', function(e) {
+	let { clientX, clientY } = e.touches[0]
+	//console.log(clientX, clientY)
+	of = [
+clientX - ts[0],
+clientY - ts[1]
+
+]
+});
+  
 
 
 
@@ -146,6 +163,7 @@ grid(12)
 
 let o = width/2
 
+let [ofx,ofy] = of;
 
 
 an = (an + 1 )%360
@@ -153,7 +171,7 @@ an = (an + 1 )%360
 let t =  Math.PI/180 * an
 let l = o/2 * Math.sin(t*1)*Math.cos(t**2)
 
-ctx.drawLine( o,o, o+l*Math.sin(t), o+l*Math.cos(t) )
+ctx.drawLine( o+ofx, o+ofy, o+l*Math.sin(t)+ofx, o+l*Math.cos(t)+ofy )
 
 //ctx.drawLine( o,o, o+l*Math.sin(t+90), o+l*Math.cos(t) )
 
