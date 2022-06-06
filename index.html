@@ -101,7 +101,7 @@ function newCanvas(id, dx, dy, color, ratio = dpr) {
 document.body.style.margin = 0
 document.body.style.padding = 0
 
-let [can,ctx] = newCanvas('can', width, width, "aaa", dpr )
+let [can,ctx] = newCanvas('can', width, width, "aaa", dpr*2 )
 //can.style.margin = "10px"
 
 
@@ -151,7 +151,7 @@ let o = width/2
 an = (an + 1 )%360
 
 let t =  Math.PI/180 * an
-let l = o/2
+let l = o/2 * Math.sin(t*t)*Math.cos(t**3)
 ctx.drawLine( o,o, o+l*Math.sin(t), o+l*Math.cos(t) )
 //ctx.drawLine( o,o, o+l*Math.sin(t+90), o+l*Math.cos(t) )
 
