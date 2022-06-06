@@ -20,8 +20,12 @@ const {
 
 console.log(width, height, dpr )
 
-CanvasRenderingContext2D.prototype.drawLine() {
-
+CanvasRenderingContext2D.prototype.drawLine = function(x0=0, y0=0, x1=100, y1=100, width=5) {
+	this.lineWidth = width
+	this.beginPath()
+	this.moveTo(x0, y0)
+	this.lineTo(x1, y1)
+	this.stroke()
 }
 
 
@@ -59,11 +63,8 @@ document.body.style.padding = 0
 let [can,ctx] = newCanvas('can', width, width, "aaa", dpr*2 )
 //can.style.margin = "10px"
 
-ctx.lineWidth = 5;
-ctx.beginPath();
-ctx.moveTo(100, 100);
-ctx.lineTo(200, 200);
-ctx.stroke();
+ctx.drawLine(0,0,100,100)
+
 
 function setupCanvas(canvas) {
   // Get the device pixel ratio, falling back to 1.
@@ -87,12 +88,12 @@ canvas.style.background = "#ccc"
 let c = elem("canvas")
 document.body.appendChild(c)
 let cx = setupCanvas(c)
-cx.lineWidth = 5;
-cx.beginPath();
-cx.moveTo(100, 100);
-cx.lineTo(200, 200);
-cx.stroke();
+cx.drawLine()
 
 </script>
 </body>
 </html>
+
+
+
+
