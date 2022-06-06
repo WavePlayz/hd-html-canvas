@@ -156,9 +156,12 @@ can.addEventListener('touchstart', function(e){
 	
 	//ctx.drawLine(0,0,clientX,clientY)
 })
-/*
-  can.addEventListener('touchend', handleEnd);
-  can.addEventListener('touchcancel', handleCancel);
+
+  can.addEventListener('touchend', e => {
+or[0]+=of[0]
+or[1]+=of[1]
+});
+/*  can.addEventListener('touchcancel', handleCancel);
 */  can.addEventListener('touchmove', function(e) {
 	let { clientX, clientY } = e.touches[0]
 	//console.log(clientX, clientY)
