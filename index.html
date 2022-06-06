@@ -57,7 +57,7 @@ function grid(nn) {
 		
 		ctx.font = "8px Arial";
 		
-		let ss = `${Math.floor((A-or[1]-of[1] )) }`
+		let ss = `${-Math.floor((A-or[1]-of[1] )/n) }`
 		ctx.fillText(ss, 10, A-ss.length*2.3)
 		
 		
@@ -79,7 +79,7 @@ function grid(nn) {
 		
 		ctx.font = "8px Arial";
 		
-		let ss = `${Math.floor((A-or[0]-of[0] )) }`
+		let ss = `${Math.floor((A-or[0]-of[0] )) /n}`
 		ctx.fillText(ss, A-ss.length*2.3, width-10)
 		
 		
