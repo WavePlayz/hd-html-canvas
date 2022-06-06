@@ -36,16 +36,32 @@ CanvasRenderingContext2D.prototype.drawLine = function(x0=0, y0=0, x1=100, y1=10
 
 
 function grid(nn) {
-	for(let i = width/nn; i < width; i += width/nn) {
+	let n = width/nn
+	
+	
+	for (let i = n-of[1]; i < width; i += n) {
+		ctx.color("a2a4a6", () => {
+			let wi = 3
+			
+			if (i % (n* 2) != 0) wi /= 2;
+			
+			ctx.drawLine( 0,i, width,i+of[1]-of[0], wi )
+			
+		})
+	}
+	
+	/*
+	for(let i = n; i < width; i += width/nn) {
 	ctx.color("a2a4a6", () => {
 		let n = 3
 		
 		if (i % (width/nn * 2) != 0) n /= 2;
 		
-		ctx.drawLine( 0+of[0],i+of[1], width+of[0],i+of[1], n )
-		ctx.drawLine( i+of[0],0+of[1], i+of[0],width+of[1], n )
+		ctx.drawLine( 0,i+of[1]-of[0], width,i+of[1]-of[0], n )
+		ctx.drawLine( i+of[0],0, i+of[0],width, n )
 	})
-}
+}*/
+
 }
 
 CanvasRenderingContext2D.prototype.clear = function(nn) {
