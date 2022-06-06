@@ -36,8 +36,9 @@ CanvasRenderingContext2D.prototype.drawLine = function(x0=0, y0=0, x1=100, y1=10
 
 
 function grid(nn) {
+	let mn = width/nn
 	for(let i = width/nn; i < width; i += width/nn) {
-	ctx.color("a0a2a4", () => {
+	ctx.color(i % (mn*2) == 0 ?"a0a2a4":"a2a4a6", () => {
 		let n = 2
 		ctx.drawLine( 0,i, width,i, n )
 		ctx.drawLine( i,0, i,width, n )
@@ -142,7 +143,7 @@ let an = 0
 
 
 function update(){
-grid(4)
+grid(12)
 
 let o = width/2
 
