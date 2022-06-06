@@ -46,7 +46,7 @@ function grid(nn) {
 			if (i % (n* 2) != 0) wi /= 2;
 			let a = i+of[1]+or[1]
 			let A = a > width ? a % width : 
-				a < 0 ? width + a : a
+				a < 0 ? width - a : a
 			ctx.drawLine( 0, A, width,A, wi )
 			
 		})
@@ -59,7 +59,7 @@ function grid(nn) {
 			if (i % (n* 2) != 0) wi /= 2;
 			let a = i+of[0] + or[0]
 			let A = a > width ? a % width : 
-				a < 0 ? width + a : a
+				a < 0 ? width - a : a
 			ctx.drawLine( A,0,A,width, wi )
 			
 		})
