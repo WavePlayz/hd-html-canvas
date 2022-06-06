@@ -159,8 +159,8 @@ can.addEventListener('touchstart', function(e){
 	console.log(clientX, clientY)
 	
 	ts = [clientX, clientY]
-	let px = clientX-or[0]-of[0] - clientX% (width/12)
-	let py = clientY-or[1]-of[1] - clientY% (width/12)
+	let px = clientX+or[0]+of[0] / (width/12)
+	let py = clientY+or[1]+of[1] / (width/12)
 	ps.push([px,py])
 	
 	
@@ -208,8 +208,8 @@ function update(){
 grid(12)
 
 ps.forEach(([x,y]) => {
-	x = x * width/12
-	y += 
+	x = width/2 + x * (width/12)
+	y = width/2 + y * (width/12)
 	ctx.drawLine(x,y, x+width/12, y+width/12)
 })
 
