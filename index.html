@@ -162,11 +162,11 @@ can.addEventListener('touchstart', function(e){
 */  can.addEventListener('touchmove', function(e) {
 	let { clientX, clientY } = e.touches[0]
 	//console.log(clientX, clientY)
-	of = [
+	if (e.touches.length < 2){ 
+of = [
 clientX - ts[0],
 clientY - ts[1]
-
-]
+]}
 });
   
 
