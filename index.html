@@ -49,21 +49,32 @@ function grid(nn) {
 				a < 0 ? width - (-a%width): a
 			ctx.drawLine( 0, A, width,A, wi )
 			
+			
+			
 		})
+		
 	}
 	
 	for (let i = 0; i <= width; i += n) {
+		let a = i+of[0] + or[0]
+			let A = a > width ? a % width : 
+				a < 0 ? width - (-a%width) : a
+				
 		ctx.color("a2a4a6", () => {
 			let wi = 3
 			
 			if (i % (n* 2) != 0) wi /= 2;
-			let a = i+of[0] + or[0]
-			let A = a > width ? a % width : 
-				a < 0 ? width - (-a%width) : a
-			ctx.drawLine( A,0,A,width, wi )
 			
+			ctx.drawLine( A,0,A,width, wi )
 		})
+		
+		ctx.font = "30px Arial";
+		ctx.fillText(`${i-n}`, , 50)
+		
+		
 	}
+	
+	
 	
 	/*
 	for(let i = n; i < width; i += width/nn) {
@@ -166,17 +177,24 @@ can.addEventListener('touchstart', function(e){
 	
 	//ctx.drawLine(0,0,clientX,clientY)
 })
-
+let mob = false
   can.addEventListener('touchend', e => {
 or[0] += of[0]
 or[1] += of[1]
 of=[0,0]
+mob = false
 });
 /*  can.addEventListener('touchcancel', handleCancel);
 */  can.addEventListener('touchmove', function(e) {
 	let { clientX, clientY } = e.touches[0]
 	//console.log(clientX, clientY)
+if (!mob)ps.pop();
+mob= true
+
 	if (e.touches.length < 2){ 
+
+
+
 of = [
 clientX - ts[0],
 clientY - ts[1]
