@@ -19,13 +19,26 @@ const {
 
 console.log(width, height, dpr )
 
-function elem (value, tag) {
-	if (value) return value
+function elem (value, tag = value) {
+	let element = globalThis[value]
 	
-	if (!)document.createElement()
-		
+	if (!element && tag) {
+		element = document.createElement(tag)
+	}
 	
+	return element
 }
+
+function newCanvas(id) {
+	const canvas = elem("canvas", id)
+	const ctx = canvas.getContext("2d")
+	document.body.appendChild(canvas)
+}
+
+
+
+
+
 
 
 </script>
