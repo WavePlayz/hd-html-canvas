@@ -34,11 +34,8 @@ CanvasRenderingContext2D.prototype.drawLine = function(x0=0, y0=0, x1=100, y1=10
 	this.stroke()
 }
 
-CanvasRenderingContext2D.prototype.clear = function(nn) {
-	let w = this.canvas.width * 10
-	let h = this.canvas.height * 10
-	this.clearRect(0, 0, w, h)
-	
+
+function grid(nn) {
 	for(let i = width/nn; i < width; i += width/nn) {
 	ctx.color("a0a2a4", () => {
 		let n = 2
@@ -46,6 +43,14 @@ CanvasRenderingContext2D.prototype.clear = function(nn) {
 		ctx.drawLine( i,0, i,width, n )
 	})
 }
+}
+
+CanvasRenderingContext2D.prototype.clear = function(nn) {
+	let w = this.canvas.width * 10
+	let h = this.canvas.height * 10
+	this.clearRect(0, 0, w, h)
+	
+	
 	
 }
 
@@ -137,6 +142,8 @@ let an = 0
 
 
 function update(){
+grid(4)
+
 let o = width/2
 
 
@@ -148,9 +155,10 @@ let l = o/2
 ctx.drawLine( o,o, o+l*Math.sin(t), o+l*Math.cos(t) )
 //ctx.drawLine( o,o, o+l*Math.sin(t+90), o+l*Math.cos(t) )
 
-n.innerHTML = 180/Math.PI * t
+n.innerHTML = (180/Math.PI * t).toFixed(2)
 
-if (t*180 == 0) ctx.clear(5);
+//if (t*180 == 0) ctx.clear(5);
+
 }
 
 
