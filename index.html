@@ -44,7 +44,7 @@ function grid(nn) {
 			let wi = 3
 			
 			if (i % (n* 2) != 0) wi /= 2;
-			let a = i+of[1]
+			let a = i+of[1]+or[1]
 			let A = a > width ? a % width : 
 				a < 0 ? width + a : a
 			ctx.drawLine( 0, A, width,A, wi )
@@ -57,7 +57,7 @@ function grid(nn) {
 			let wi = 3
 			
 			if (i % (n* 2) != 0) wi /= 2;
-			let a = i+of[0] 
+			let a = i+of[0] + or[0]
 			let A = a > width ? a % width : 
 				a < 0 ? width + a : a
 			ctx.drawLine( A,0,A,width, wi )
@@ -136,7 +136,7 @@ document.body.style.margin = 0
 document.body.style.padding = 0
 
 let of = [0,0]
-let or = [0,0]
+let or = [width/2, width/2]
 
 let [can,ctx] = newCanvas('can', width, width, "aaa", dpr*1.5 )
 //can.style.margin = "10px"
@@ -158,8 +158,9 @@ can.addEventListener('touchstart', function(e){
 })
 
   can.addEventListener('touchend', e => {
-or[0]+=of[0]
-or[1]+=of[1]
+or[0] += of[0]
+or[1] += of[1]
+of=[0,0]
 });
 /*  can.addEventListener('touchcancel', handleCancel);
 */  can.addEventListener('touchmove', function(e) {
@@ -208,7 +209,7 @@ an = (an + 1 )%360
 let t =  Math.PI/180 * an
 let l = o/2 * Math.sin(t*1)*Math.cos(t**2)
 
-ctx.drawLine( o+ofx, o+ofy, o+l*Math.sin(t)+ofx, o+l*Math.cos(t)+ofy )
+ctx.drawLine( ofx, ofy, l*Math.sin(t)+ofx, l*Math.cos(t)+ofy )
 
 //ctx.drawLine( o,o, o+l*Math.sin(t+90), o+l*Math.cos(t) )
 
