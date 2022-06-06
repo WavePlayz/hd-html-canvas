@@ -20,6 +20,11 @@ const {
 
 console.log(width, height, dpr )
 
+CanvasRenderingContext2D.prototype.drawLine() {
+
+}
+
+
 function elem (value, tag = value) {
 	let element = globalThis[value]
 	
@@ -30,7 +35,7 @@ function elem (value, tag = value) {
 	return element
 }
 
-function newCanvas(id, dx, dy, color = "aaa", ratio = dpr) {
+function newCanvas(id, dx, dy, color, ratio = dpr) {
 	const canvas = elem(id , "canvas")
 	const ctx = canvas.getContext("2d")
 	
@@ -38,7 +43,7 @@ function newCanvas(id, dx, dy, color = "aaa", ratio = dpr) {
 	canvas.height = dy * ratio
 	canvas.style.width = dx + "px"
 	canvas.style.height = dy + "px"
-	canvas.style.background = "#" + color.replaceAll("#","")
+	canvas.style.background = "#" + (color??"aaa").replaceAll("#","")
 	canvas.style.boxSizeing = "border-box"
 	
 	ctx.setTransform(ratio, 0, 0, ratio, 0, 0)
@@ -51,8 +56,8 @@ function newCanvas(id, dx, dy, color = "aaa", ratio = dpr) {
 document.body.style.margin = 0
 document.body.style.padding = 0
 
-let [can,ctx] = newCanvas('can', width, width )
-can.style.margin = "10px"
+let [can,ctx] = newCanvas('can', width, width, "aaa", dpr*2 )
+//can.style.margin = "10px"
 
 ctx.lineWidth = 5;
 ctx.beginPath();
@@ -69,6 +74,9 @@ function setupCanvas(canvas) {
   // size * the device pixel ratio.
   canvas.width = rect.width * dpr;
   canvas.height = rect.height * dpr;
+  canvas.style.width = width + ""
+canvas.style.height = width + ""
+canvas.style.background = "#ccc"
   var ctx = canvas.getContext('2d');
   // Scale all drawing operations by the dpr, so you
   // don't have to worry about the difference.
@@ -76,8 +84,14 @@ function setupCanvas(canvas) {
   return ctx;
 }
 
-
-
+let c = elem("canvas")
+document.body.appendChild(c)
+let cx = setupCanvas(c)
+cx.lineWidth = 5;
+cx.beginPath();
+cx.moveTo(100, 100);
+cx.lineTo(200, 200);
+cx.stroke();
 
 </script>
 </body>
