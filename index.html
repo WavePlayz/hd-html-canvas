@@ -34,6 +34,20 @@ CanvasRenderingContext2D.prototype.drawLine = function(x0=0, y0=0, x1=100, y1=10
 	this.stroke()
 }
 
+function wrap (n, min, max) {
+	if (n < min)
+		return max - (-n % max)
+		
+	if (n > max)
+		return n % max
+		
+	return n
+}
+
+Number.prototype.wrap = function(m,M) {
+	return wrap(Number(this), m, M)
+}
+
 
 function grid(nn) {
 	let n = width/nn
@@ -41,8 +55,7 @@ function grid(nn) {
 	
 	for (let i = 0; i <= width; i += n) {
 		let a = i+of[1]+or[1]
-			let A = a > width ? a % width : 
-				a < 0 ? width - (-a%width): a
+		let A = a.wrap(0,width)
 		ctx.color("a2a4a6", () => {
 			let wi = 3
 			
@@ -60,7 +73,7 @@ ctx.shadowColor="black";
 ctx.shadowBlur=50;
 		ctx.textAlign = "center";
 ctx.textBaseline = "middle";
-		let ss = `${-Math.floor((A-or[1]-of[1] )/n) }`
+		let ss = `${Math.floor((A-or[1]-of[1] )/n) }`
 		ctx.fillText(ss, n/2, A)
 		
 		ctx.shadowBlur = 0
@@ -69,9 +82,8 @@ ctx.textBaseline = "middle";
 	
 	for (let i = 0; i <= width; i += n) {
 		let a = i+of[0] + or[0]
-			let A = a > width ? a % width : 
-				a < 0 ? width - (-a%width) : a
-				
+		let A = a.wrap(0,width)
+		
 		ctx.color("a2a4a6", () => {
 			let wi = 3
 			
@@ -86,7 +98,7 @@ ctx.shadowBlur=50;
 		ctx.textAlign = "center";
 		ctx.textBaseline = "middle";
 		let ss = `${Math.floor((A-or[0]-of[0] )) /n}`
-		ctx.fillText(ss, A, width-n/2)
+		ctx.fillText(ss, A, n/2)
 		ctx.shadowBlur = 0
 		
 	}
