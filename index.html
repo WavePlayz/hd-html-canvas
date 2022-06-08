@@ -217,10 +217,11 @@ can.addEventListener('click', function(e){
 })
 
 can.addEventListener('touchstart', function(e){
-	let rect = can.getBoundingClientRect();
+	
 	let { clientX, clientY } = e.touches[0]
 	//console.log(e,clientX, clientY)
 	
+	let rect = can.getBoundingClientRect();
 	clientX -= rect.left
 	clientY -= rect.top
 	
@@ -243,6 +244,11 @@ mob = false
 */  can.addEventListener('touchmove', function(e) {
 	let { clientX, clientY } = e.touches[0]
 	//console.log(clientX, clientY)
+	
+	let rect = can.getBoundingClientRect();
+	clientX -= rect.left
+	clientY -= rect.top
+	
 if (!mob)ps.pop();
 mob= true
 
