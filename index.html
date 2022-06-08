@@ -6,14 +6,31 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>HD Canvas</title>
-	
+	<style>
+		* {
+		font-family: monospace;}
+	</style>
 </head>
 <body>
-	
+
+<div contenteditable oninput="tch(this)">
+    <h1>vyo<span style="color: red">म</span></b> </h1>
+</div>
+
 <p id='n'></p>
 
 <!-- <script src="./script.js"></script> -->
 <script>
+
+
+function tch(e) {
+	let txt = e.textContent
+	e.innerHTML = txt+"\n"
+	
+	console.log(e,txt)
+}
+
+
 const {
 	innerWidth: width,
 	innerHeight: height,
@@ -23,23 +40,26 @@ const {
 console.log(width, height, dpr )
 
 CanvasRenderingContext2D.prototype.getColor = function(color) {
-	return "#" + color.replaceAll("#","")
+	return color.startsWith("hsl") ? color : "#" + color.replaceAll("#","")
 }
 
 CanvasRenderingContext2D.prototype.drawLine = function(x0=0, y0=0, x1=100, y1=100, width=5) {
 	this.lineWidth = width
 	this.beginPath()
+	this.lineCap = "round"
 	this.moveTo(x0, y0)
 	this.lineTo(x1, y1)
 	this.stroke()
 }
 
 function wrap (n, min, max) {
+	let delta = max - min
+	
 	if (n < min)
-		return max - (-n % max)
+		return max - (min - n) % delta
 		
 	if (n > max)
-		return n % max
+		return min + (n - min) % delta
 		
 	return n
 }
@@ -55,13 +75,13 @@ function grid(nn) {
 	
 	for (let i = 0; i <= width; i += n) {
 		let a = i+of[1]+or[1]
-		let A = a.wrap(0,width)
+		let A = a.wrap(n,width-n)
 		ctx.color("a2a4a6", () => {
 			let wi = 3
 			
 			if (i % (n* 2) != 0) wi /= 2;
 			
-			ctx.drawLine( 0, A, width,A, wi )
+			ctx.drawLine( n, A, width-n,A, wi )
 			
 			
 			
@@ -80,16 +100,16 @@ ctx.textBaseline = "middle";
 		
 	}
 	
-	for (let i = 0; i <= width; i += n) {
+	for (let i = n; i <= width; i += n) {
 		let a = i+of[0] + or[0]
-		let A = a.wrap(0,width)
+		let A = a.wrap(n,width-n)
 		
 		ctx.color("a2a4a6", () => {
 			let wi = 3
 			
 			if (i % (n* 2) != 0) wi /= 2;
 			
-			ctx.drawLine( A,0,A,width, wi )
+			ctx.drawLine( A,n,A,width-n, wi )
 		})
 		
 		ctx.font="10px verdana";
@@ -144,6 +164,12 @@ CanvasRenderingContext2D.prototype.color = function(color, func) {
 }
 
 
+function calcColor(val) {
+    var colString = "hsl(" + (val%360) + ",100%,50%)";
+    return colString;
+}
+
+
 function elem (value, tag = value) {
 	let element = globalThis[value]
 	
@@ -187,22 +213,25 @@ let [can,ctx] = newCanvas('can', width, width, "aaa", dpr*1.5 )
 let ts = []
 let tm = []
 
-let ps = []
+let ps = [[0,0]]
 
 can.addEventListener('click', function(e){
 	
 })
 
 can.addEventListener('touchstart', function(e){
-	
+	let rect = can.getBoundingClientRect();
 	let { clientX, clientY } = e.touches[0]
-	console.log(clientX, clientY)
+	//console.log(e,clientX, clientY)
+	
+	clientX -= rect.left
+	clientY -= rect.top
 	
 	ts = [clientX, clientY]
-	let px = Math.floor((clientX-or[0]-of[0]) / (width/12))*(width/12)
-	let py = Math.floor((clientY-or[1]-of[1]) / (width/12))*(width/12)
-	ps.push([px,py])
-	
+	let px = Math.floor((clientX-or[0]) / (width/12)) * (width/12)
+	let py = Math.floor((clientY-or[1]) / (width/12)) * (width/12)
+	ps.push([px,py,0])
+	//console.log(clientX, clientY, or, of, width)
 	
 	//ctx.drawLine(0,0,clientX,clientY)
 })
@@ -242,6 +271,7 @@ clientY - ts[1]
 let nn = 5
 
 let an = 0
+let indi = 0
 
 ;(function loop() {
 	ctx.clear(5)
@@ -251,15 +281,20 @@ let an = 0
 
 
 
+
 function update(){
 grid(12)
 
-ps.forEach(([x,y]) => {
+ps.forEach(([x,y], i) => {
 	x = x + or[0] + of[0] //- width/2 
 	y = y + or[1] + of[1] //- width/2
-ctx.color("a29486", ()=> {
-	ctx.drawLine(x,y, x+width/12, y-width/12, 6)
-	ctx.drawLine(x,y-width/12, x+width/12, y, 6)
+	
+ctx.color(
+calcColor(ps[i][2]++)
+//"a29486"
+, ()=> {
+	ctx.drawLine(x,y, x+width/12, y+width/12, 6)
+	ctx.drawLine(x,y+width/12, x+width/12, y, 6)
 })
 
 })
@@ -276,8 +311,33 @@ an = (an + 1 )%360
 let t =  Math.PI/180 * an
 let l = o/2 * Math.sin(t*1)*Math.cos(t**2)
 
-if (Math.hypot(ofx-o, ofy-o) > Math.hypot(o, o))
-ctx.color("a2a4ff",() => ctx.drawLine( o, o, ofx, ofy, 3))
+if (Math.hypot(ofx-o) > o || Math.hypot(ofy-o) > o) {
+	indi += 0.05;
+	if (indi>1) indi = 1;
+}
+else {
+	indi -= 0.1; 
+	if (indi<0) indi = 0; 
+}
+
+
+let len = Math.hypot(ofx-o, ofy-o)
+
+//a2a4ff
+ctx.color("93f",() => {
+/*
+normal | multiply | screen | overlay | 
+  darken | lighten | color-dodge | color-burn | hard-light | 
+  soft-light | difference | exclusion | hue | saturation | 
+  color | luminosity
+*/
+ctx.globalCompositeOperation = "overlay"
+ctx.setLineDash([1, 10])
+ctx.drawLine( o, o, o+(ofx-o)*((len/o)**4)   , o+(ofy-o)*(((len)/o)**4), 3)
+ctx.setLineDash([])
+ctx.globalCompositeOperation = "normal"
+})
+
 ctx.drawLine( ofx, ofy, l*Math.sin(t)+ofx, l*Math.cos(t)+ofy )
 
 
