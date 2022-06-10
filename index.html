@@ -275,6 +275,7 @@ let nn = 5
 
 let an = 0
 let indi = 0
+let w2 = (width/12)
 
 ;(function loop() {
 	ctx.clear(5)
@@ -285,15 +286,19 @@ let indi = 0
 
 
 
+
 function update(){
 grid(12)
 
 ps.forEach(([x,y], i) => {
 	x = x + or[0] + of[0] //- width/2 
 	y = y + or[1] + of[1] //- width/2
-	
+
+if (x < w2 || x > width-w2) return;
+if (y < w2 || y > width-w2) return;
+
 ctx.color(
-calcColor(ps[i][2]++)
+of[0] && of[1] && calcColor(ps[i][2]) || calcColor(ps[i][2]++) 
 //"a29486"
 , ()=> {
 	ctx.drawLine(x,y, x+width/12, y+width/12, 6)
