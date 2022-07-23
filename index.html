@@ -199,6 +199,7 @@ document.body.style.margin = 0
 document.body.style.padding = 0
 
 let of = [0,0]
+let of0 = [0,0]
 let or = [width/2, width/2]
 
 let [can,ctx] = newCanvas('can', width, width, "aaa", dpr*1.5 )
@@ -210,7 +211,7 @@ let [can,ctx] = newCanvas('can', width, width, "aaa", dpr*1.5 )
 let ts = []
 let tm = []
 
-let ps = [[0,0]]
+let ps = [[0,0,0], [1*(width/12),0,10], [2*(width/12),0,20]]
 
 can.addEventListener('click', function(e){
 	
@@ -237,7 +238,7 @@ let mob = false
   can.addEventListener('touchend', e => {
 or[0] += of[0]
 or[1] += of[1]
-of=[0,0]
+of0=[0,0]
 mob = false
 });
 /*  can.addEventListener('touchcancel', handleCancel);
@@ -256,7 +257,7 @@ mob= true
 
 
 
-of = [
+of0 = [
 clientX - ts[0],
 clientY - ts[1]
 ]}
@@ -275,7 +276,6 @@ let nn = 5
 
 let an = 0
 let indi = 0
-let w2 = (width/12)
 
 ;(function loop() {
 	ctx.clear(5)
@@ -286,19 +286,27 @@ let w2 = (width/12)
 
 
 
-
 function update(){
 grid(12)
+
+
+
+
+let odx = (of0[0] - of[0])
+let ody = (of0[1] - of[1])
+if (odx > 0.1) 
+	of[0] += odx * 0.5;
+if (ody > 0.1)
+	of[1] += ody * 0.5;
+
+of = of0
 
 ps.forEach(([x,y], i) => {
 	x = x + or[0] + of[0] //- width/2 
 	y = y + or[1] + of[1] //- width/2
-
-if (x < w2 || x > width-w2) return;
-if (y < w2 || y > width-w2) return;
-
+if (!ps[i][2]) ps[i][2] = 0;
 ctx.color(
-of[0] && of[1] && calcColor(ps[i][2]) || calcColor(ps[i][2]++) 
+calcColor(ps[i][2]++)
 //"a29486"
 , ()=> {
 	ctx.drawLine(x,y, x+width/12, y+width/12, 6)
@@ -332,6 +340,7 @@ else {
 let len = Math.hypot(ofx-o, ofy-o)
 
 //a2a4ff
+if (len / o > 0.5){
 ctx.color("93f",() => {
 /*
 normal | multiply | screen | overlay | 
@@ -345,7 +354,7 @@ ctx.drawLine( o, o, o+(ofx-o)*((len/o)**4)   , o+(ofy-o)*(((len)/o)**4), 3)
 ctx.setLineDash([])
 ctx.globalCompositeOperation = "normal"
 })
-
+}
 ctx.drawLine( ofx, ofy, l*Math.sin(t)+ofx, l*Math.cos(t)+ofy )
 
 
